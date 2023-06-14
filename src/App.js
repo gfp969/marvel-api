@@ -1,7 +1,12 @@
+import MarvelApp from "./components/MarvelApp";
+
 function App() {
-  return(
-    <h1>MARVEL</h1>
-  )
+  return (
+    <div className="App">
+      <h1>MARVEL</h1>
+      <MarvelApp />
+    </div>
+  );
 }
 
 export default App;
