@@ -1,7 +1,9 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export default function MarvelApp() {
+    const navigate=useNavigate();
     const [personajes, setPersonajes] = useState([]);
     const hash = process.env.REACT_APP_HASH;
     const key = process.env.REACT_APP_PUBLIC_KEY;
@@ -16,17 +18,26 @@ export default function MarvelApp() {
             .catch(error => { console.log(error) })
     }, [])
     console.log(personajes);
+    
+    function handleClick(id){
+        navigate(`/${id}`);
+    }
 
     return (
-        <div className="card-group">
-            {personajes.map(per => (
-                <div class="card" key={per.id}>
-                    <img src={`${per.thumbnail.path}.${per.thumbnail.extension}`} class="card-img-top" width="200px" alt="..." />
-                    <div className="card-body">
-                        <h5 className="card-title">{per.name}</h5>
+        <Fragment>
+            <img src="../img/marvel.png" width="300px" alt="" />
+            <h1>MARVEL</h1>
+
+            <div className="card-group">
+                {personajes.map(per => (
+                    <div class="card" key={per.id}>
+                        <img src={`${per.thumbnail.path}.${per.thumbnail.extension}`} class="card-img-top" width="200px" alt="..." />
+                        <div className="card-body">
+                            <button onClick={()=>(navigate(`/home/${per.id}`))} className="card-title">{per.name}</button>
+                        </div>
                     </div>
-                </div>
-            ))}
-        </div>
+                ))}
+            </div>
+        </Fragment>
     )
 }
